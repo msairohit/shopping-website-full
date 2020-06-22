@@ -1,0 +1,135 @@
+    <form name="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm)" id="msform">
+        <!-- progressbar -->
+    <ul id="progressbar">
+        <li class="active">Account Setup</li>
+        <li>Social Profiles</li>
+        <li>Personal Details</li>
+      </ul>
+      <!-- fieldsets -->
+      <fieldset>
+        <h2 class="fs-title">Create your account</h2>
+        <h3 class="fs-subtitle">This is step 1</h3>
+                <label for="first name">First name</label>
+                    <input type="text" class="form-control" formControlName="firstName" placeholder="First name"
+                        [ngClass]="{'is-invalid': isValid('firstName')}">
+                    <div *ngIf="isValid('firstName')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('firstName').errors.required">
+                            First Name is required.
+                        </div>
+                        <div *ngIf="signUpForm.get('firstName').errors.minlength">
+                            First Name must be at least 3 characters long.
+                        </div>
+                    </div>
+                <label for="last name">Last name</label>
+                    <input type="text" class="form-control" placeholder="Last name" formControlName="lastName"
+                        [ngClass]="{'is-invalid': isValid('lastName')}">
+                    <div *ngIf="isValid('lastName')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('lastName').errors.required">
+                            Last Name is required.
+                        </div>
+                        <div *ngIf="signUpForm.get('lastName').errors.minlength">
+                            Last Name must be at least 3 characters long.
+                        </div>
+                    </div>
+        <input type="button" name="next" class="next action-button" value="Next"/>
+        <!-- <button name="next" class="btn btn-success" value="Next" [disabled] = "isValid('lastName') || isValid('firstName')"> next</button> -->
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Social Profiles</h2>
+        <h3 class="fs-subtitle">Your presence on the social network</h3>
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Email" formControlName="email"
+                        [ngClass]="{'is-invalid': isValid('email')}">
+                    <div *ngIf="isValid('email')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('email').errors.required">
+                            email is required.
+                        </div>
+                        <div *ngIf="signUpForm.get('email').errors.email">
+                            enter valid email.
+                        </div>
+                    </div>
+                </div>
+                <label for="phoneNumber">Phone Number</label>
+                    <input type="number" class="form-control" placeholder="Phone Number" formControlName="phoneNumber"
+                        [ngClass]="{'is-invalid': isValid('phoneNumber')}">
+                    <div *ngIf="isValid('phoneNumber')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('phoneNumber').errors.required">
+                            phoneNumber is required.
+                        </div>
+                        <div
+                            *ngIf="signUpForm.get('phoneNumber').errors.max || signUpForm.get('phoneNumber').errors.pattern || signUpForm.get('phoneNumber').errors.min">
+                            phoneNumber is not valid.
+                        </div>
+                    </div>
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Personal Details</h2>
+        <h3 class="fs-subtitle">We will never sell it</h3>
+            <label for="user name">user name</label>
+                <input type="text" class="form-control" placeholder="Username" formControlName="userName"
+                    [ngClass]="{'is-invalid': isValid('userName')}">
+                <div *ngIf="isValid('userName')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.get('userName').errors.required">
+                        User name is required.
+                    </div>
+                    <div *ngIf="signUpForm.get('userName').errors.pattern">
+                        No space is allowed in username
+                    </div>
+                    <div *ngIf="signUpForm.get('userName').errors.minlength">
+                        Username must be at least 5 characters long.
+                    </div>
+                </div>
+
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                    [ngClass]="{'is-invalid': isValid('password')}">
+                <div *ngIf="isValid('password')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.get('password').errors.required">
+                        password is required.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.minlength">
+                        password must be at least 8 characters long.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.hasSpecialCharacters">
+                        password shpuld contain atleast one special character.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.hasCapitalCase">
+                        password must contain atleast one capital case letter.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.hasNumber">
+                        password must contain atleast one number.
+                    </div>
+                </div>
+
+                <label for="Confirm password">Confirm Password</label>
+                <input type="text" class="form-control" placeholder="confirm Password" formControlName="confirmPassword"
+                    [ngClass]="{'is-invalid': isValid('confirmPassword')}">
+                <div *ngIf="isValid('confirmPassword')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.get('confirmPassword').errors.required">
+                        confirm Password is required.
+                    </div>
+                    <div *ngIf="signUpForm.get('confirmPassword').errors.NoPassswordMatch">
+                        Password and confirmPassword does not match.
+                    </div>
+                </div>
+
+        <!-- <div style="text-align: center;"> -->
+            <!-- <button class="btn btn-success" type="submit" [disabled]="!signUpForm.valid">Sign Up</button> -->
+            <!-- <button class="btn btn-success" type="submit">Sign Up</button> -->
+        <!-- </div> -->
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <!-- <input type="submit" name="submit" class="submit action-button" value="Submit" /> -->
+      <button class="action-button" type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
+      <div *ngIf="isFormInValid()" class="invalid-feedback d-block">
+            Some form values are incorrect, please enter valid data and come back.
+    </div>
+    </fieldset>
+    </form>
+    <p>
+        template reference : https://codepen.io/bluestarstudios/details/ZEGamYP
+        <br>
+        inside validation and all by me  😋
+    </p>

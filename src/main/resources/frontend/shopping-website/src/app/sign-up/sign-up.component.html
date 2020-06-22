@@ -1,0 +1,190 @@
+<!-- <form [formGroup] = "signUpForm" (ngSubmit)="onSubmit(signUpForm)">
+
+    <input type="text" formControlName = "userName">
+    <input type="text" formControlName = "email">
+    <input type="text" formControlName = "password">
+
+    <button type="submit" [disabled]="!signUpForm.valid">Submit</button>
+
+</form> -->
+<div>
+    <form name="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm)">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="first name">First name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">First Name</span>
+                    </div>
+                    <!-- [ngClass]="signUpForm.controls['firstName'].invalid ? 'is-invalid' : ''" -->
+                    <input type="text" class="form-control" formControlName="firstName" placeholder="First name"
+                        [ngClass]="{'is-invalid': isValid('firstName')}">
+                    <div *ngIf="isValid('firstName')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('firstName').errors.required">
+                            First Name is required.
+                        </div>
+                        <div *ngIf="signUpForm.get('firstName').errors.minlength">
+                            First Name must be at least 3 characters long.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="last name">Last name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Last name" formControlName="lastName"
+                        [ngClass]="{'is-invalid': isValid('lastName')}">
+                    <div *ngIf="isValid('lastName')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('lastName').errors.required">
+                            Last Name is required.
+                        </div>
+                        <div *ngIf="signUpForm.get('lastName').errors.minlength">
+                            Last Name must be at least 3 characters long.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                    </div>
+                    <input type="email" class="form-control" placeholder="Email" formControlName="email"
+                        [ngClass]="{'is-invalid': isValid('email')}">
+                    <div *ngIf="isValid('email')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('email').errors.required">
+                            email is required.
+                        </div>
+                        <div *ngIf="signUpForm.get('email').errors.email">
+                            enter valid email.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="phoneNumber">Phone Number</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">#</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Phone Number" formControlName="phoneNumber"
+                        [ngClass]="{'is-invalid': isValid('phoneNumber')}">
+                    <div *ngIf="isValid('phoneNumber')" class="invalid-feedback">
+                        <div *ngIf="signUpForm.get('phoneNumber').errors.required">
+                            phoneNumber is required.
+                        </div>
+                        <div
+                            *ngIf="signUpForm.get('phoneNumber').errors.max || signUpForm.get('phoneNumber').errors.pattern || signUpForm.get('phoneNumber').errors.min">
+                            phoneNumber is not valid.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-4 mb-3">
+            <label for="user name">will be displayed in your profile</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend3">User Name</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" formControlName="userName"
+                    [ngClass]="{'is-invalid': isValid('userName')}">
+                <div *ngIf="isValid('userName')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.get('userName').errors.required">
+                        User name is required.
+                    </div>
+                    <div *ngIf="signUpForm.get('userName').errors.pattern">
+                        No space is allowed in username
+                    </div>
+                    <div *ngIf="signUpForm.get('userName').errors.minlength">
+                        Username must be at least 5 characters long.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                    [ngClass]="{'is-invalid': isValid('password')}">
+                <div *ngIf="isValid('password')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.get('password').errors.required">
+                        password is required.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.minlength">
+                        password must be at least 8 characters long.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.hasSpecialCharacters">
+                        password shpuld contain atleast one special character.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.hasCapitalCase">
+                        password must contain atleast one capital case letter.
+                    </div>
+                    <div *ngIf="signUpForm.get('password').errors.hasNumber">
+                        password must contain atleast one number.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="Confirm password">Confirm Password</label>
+                <input type="text" class="form-control" placeholder="confirm Password" formControlName="confirmPassword"
+                    [ngClass]="{'is-invalid': isValid('confirmPassword')}">
+                <div *ngIf="isValid('confirmPassword')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.get('confirmPassword').errors.required">
+                        confirm Password is required.
+                    </div>
+                    <div *ngIf="signUpForm.get('confirmPassword').errors.NoPassswordMatch">
+                        Password and confirmPassword does not match.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="validationServer03">City</label>
+                <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
+                <div class="invalid-feedback">
+                    Please provide a valid city.
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="validationServer04">State</label>
+                <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="State" required>
+                <div class="invalid-feedback">
+                    Please provide a valid state.
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="validationServer05">Zip</label>
+                <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
+                <div class="invalid-feedback">
+                    Please provide a valid zip.
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                <label class="form-check-label" for="invalidCheck3">
+                    Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+            </div>
+        </div> -->
+        <div style="text-align: center;">
+            <!-- <button class="btn btn-success" type="submit" [disabled]="!signUpForm.valid">Sign Up</button> -->
+            <button class="btn btn-success" type="submit">Sign Up</button>
+        </div>
+    </form>
+</div>

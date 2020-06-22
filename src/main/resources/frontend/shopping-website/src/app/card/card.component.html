@@ -1,0 +1,55 @@
+<!-- <div class="card-group">
+    <div class="card">
+        <div>
+            <img class="card-img-top" src="assets/images/image.png" width="500" height="600" alt="Card image cap">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+<!-- style="display: inline-block; margin-right: 20px; border: ridge;" -->
+<!-- style="box-shadow: 2px 4px 29px -4px rgba(0,0,0,0.35);border-radius: 2em;box-sizing: border-box;display: block;height: 381px;width: 340px;" -->
+<div >
+    <ul style="list-style-type: none;">
+        <li *ngFor="let data of parentData; index as i"
+            
+            style="display: inline-block; margin-right: 20px; border-radius: 2em; box-shadow: 2px 4px 29px -4px rgba(0,0,0,0.35);box-sizing: border-box; margin-bottom: 20px;">
+            <div style="text-align: center;">
+                <img class="card-img-top" style="width: 200px;" src="assets/images/image.png" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{data.name}}</h5>
+                <p class="card-text">{{data.vegetableDescription}}</p>
+                <p class="card-text"> Price : {{data.price || data.costOfEachItem | currency:'INR'}}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+                <app-counter id = "app-counter-{{data.name}}" [parentData] = "data" (messageEvent)="receiveMessage($event, data)"></app-counter>
+                <!-- <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" aria-label="">Action</button>
+            </span>
+            <input type="text" class="form-control" name="name" id="name" placeholder="" aria-label="">
+        </div> -->
+                <div style="text-align: center;">
+                    <button  *ngIf = "data.price" id = "btn-{{data.name}}" class="btn btn-primary" (click)="addOrUpdateCart(data)" [disabled] = "data.buttonStatus">{{data.buttonText}}</button>
+                    <label *ngIf = "data.totalCost">  Total cost : </label>
+                        <label *ngIf = "data.totalCost" id = "totalCostLabel-{{data.name}}">{{data.totalCost}}</label>
+                    <button id = "btn-remove-{{data.name}}" class="btn btn-danger" (click)="removeItemFromCart(data)" style="margin-left: 10px;">
+                        <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                          </svg>
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

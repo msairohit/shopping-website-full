@@ -1,0 +1,129 @@
+<p>manage-vegetables works!</p>
+<div>
+    <form name="form" [formGroup]="vegetablesForm">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="Vegetable name">Vegetable name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">Vegetable Name</span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="vegetableName" placeholder="Vegetable name"
+                        [ngClass]="{'is-invalid': isValid('vegetableName')}">
+                    <div *ngIf="isValid('vegetableName')" class="invalid-feedback">
+                        <div *ngIf="vegetablesForm.get('vegetableName').errors.required">
+                            Vegetable Name is required.
+                        </div>
+                        <div *ngIf="vegetablesForm.get('vegetableName').errors.minlength">
+                            Vegetable Name must be at least 3 characters long.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="price">Price</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">₹</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Price" formControlName="price"
+                        [ngClass]="{'is-invalid': isValid('price')}">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroupPrepend3">per KG</span>
+                    </div>
+                    <div *ngIf="isValid('price')" class="invalid-feedback">
+                        <div *ngIf="vegetablesForm.get('price').errors.required">
+                            price is required.
+                        </div>
+                        <div *ngIf="vegetablesForm.get('price').errors.max || vegetablesForm.get('price').errors.min">
+                            price is not valid.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col-md-2 mb-3">
+            </div>
+            <div class="col-md-4 mb-3" style="text-align: center;">
+                <label for="Vegetable Description">Vegetable Description</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">Vegetable Description</span>
+                    </div>
+                    <textarea class="form-control" placeholder="Vegetable Description"
+                        formControlName="vegetableDescription"
+                        [ngClass]="{'is-invalid': isValid('vegetableDescription')}"></textarea>
+                    <div *ngIf="isValid('vegetableDescription')" class="invalid-feedback">
+                        <div *ngIf="vegetablesForm.get('vegetableDescription').errors.required">
+                            Vegetable Description is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-3" style="text-align: center;">
+                <button class="btn btn-primary" (click)="onSearch()">Search</button>
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <button class="btn btn-success" (click)="onCreate()" [disabled] = "!vegetablesForm.valid || !updateDisabled">create</button>
+                <!-- <button class="btn btn-success" [disabled]="!vegetablesForm.valid">create new vegetable</button> -->
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <button class="btn btn-warning" (click) = "onUpdate()" [disabled] = "!vegetablesForm.valid || updateDisabled">update</button>
+                <!-- <button class="btn btn-success" [disabled]="!vegetablesForm.valid">update vegetable</button> -->
+            </div>
+            <div class="col-sm-3" style="text-align: center;">
+                <button class="btn btn-danger" (click) = "onClear()">reset</button>
+                <!-- <button class="btn btn-success" [disabled]="!vegetablesForm.valid">delete vegetable</button> -->
+            </div>
+
+        </div>
+    </form>
+
+    <div *ngIf="showTable">
+        <div style="text-align: end;">
+            toggle dark mode
+            <label class="switch">
+                <input type="checkbox" [(ngModel)]="theCheckbox">
+                <span class="slider round"></span>
+              </label>
+        </div>
+        <table  [ngClass] = "theCheckbox ? 'table table-striped table-dark' : 'table table-striped'">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">DESCRIPTION</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vegetable of vegetables; index as i">
+                    <th>{{i}}</th>
+                    <td>{{vegetable.name}}</td>
+                    <td>{{vegetable.vegetableDescription}}</td>
+                    <td>{{vegetable.price}}</td>
+                    <td>
+                        
+                        <button (click) = "onTableEditClicked(vegetable)" style="margin-right: 20px;">
+                            <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                              </svg>
+                        </button>
+                        <button (click) = "onTableDeleteClicked(vegetable)">
+                            <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                              </svg>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

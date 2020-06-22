@@ -1,0 +1,36 @@
+<div class="input-group">
+    <span class="input-group-btn">
+        <button type="button" (click) = "decrement()" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">-
+        </button>
+    </span>
+
+
+
+    <input type="number" id="quantity" name="quantity" class="form-control input-number" [(ngModel)] = 'count' value="count"
+        min="0.25" max="100" step="0.25"
+        (keypress)="keyPressed($event)">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroupPrepend3">Kgs</span>
+    </div>
+    
+    
+    <!-- <div class="input-group">
+        <input type="number" id="quantity" name="quantity" class="form-control input-number" [(ngModel)] = 'count' value="count"
+        min='1' max='100'
+        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </div> -->
+    
+    <span class="input-group-btn">
+        <button type="button" (click) = "increment($event)" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+
+        </button>
+    </span>
+</div>

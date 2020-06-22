@@ -1,0 +1,17 @@
+<form name="form" [formGroup]="signInForm" (ngSubmit)="onSubmit(signIpForm)" id="signInForm">
+    <div class="main-div">
+        <h4 >SIGN IN</h4>
+        <br>
+        <hr>
+        <br>
+        <!-- <h3 class="fs-subtitle">This is step 1</h3> -->
+        <label for="user name">User name</label>
+        <input type="text" class="form-control" formControlName="userName" placeholder="user name">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+        <div>
+            <a class="anchor"  (click) = "onForgetPassword()">Forgot password?</a>
+        </div>
+        <button class="action-button" type="submit" [disabled]="!signInForm.valid">Sign In</button>
+    </div>
+</form>
