@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "heroku-postbuild": "npm install",
-    "postinstall": "ng build --prod",
+    "postinstall": "ng build --aot -prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -36,7 +36,6 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
     "@angular/cli": "~8.3.20",
-    "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
@@ -52,6 +51,10 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+  },
+
+  "engines": {
+    "node": "12.13.1",
+    "npm": "6.12.1"
   }
 }
