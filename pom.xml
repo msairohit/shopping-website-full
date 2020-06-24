@@ -68,11 +68,9 @@
 					</execution>
 				</executions>
 				<configuration>
-					<executable>npm</executable>
+					<executable>ng</executable>
 					<workingDirectory>src/main/resources/frontend/shopping-website</workingDirectory>
 					<arguments>
-						<argument>run</argument>
-						<argument>ng</argument>
 						<argument>build</argument>
 					</arguments>
 				</configuration>
